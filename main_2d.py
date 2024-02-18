@@ -255,8 +255,6 @@ def update():
         ax.set_rmax(maxdistance)
 
 
-
-
 # Main loop to continuously update the plot
 detObj = {}
 while True:
@@ -272,4 +270,3 @@ while True:
         track.stop()
         pygame.quit()
         sys.exit()
-

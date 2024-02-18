@@ -6,25 +6,55 @@ import pygame
 from pygame.locals import *
 import json
 
-
-
 pygame.init()
 
 def read_file(path):
+    """
+    Read the contents of a file.
+
+    Parameters:
+        path (str): The path to the file.
+
+    Returns:
+        str: The contents of the file.
+    """
     with open(path, 'r') as f:
         return f.read()
 
 def read_json(path):
+    """
+    Read and parse a JSON file.
+
+    Parameters:
+        path (str): The path to the JSON file.
+
+    Returns:
+        dict: The parsed JSON data.
+    """
     return json.loads(read_file(path))
 
 def get_note_map():
+    """
+    Get the note map from a JSON file.
+
+    Returns:
+        dict: The note map.
+    """
     return read_json('frequency_map.json')
 
 def play_tone(frequency, sample_rate=44100, duration=1, speaker=None):
     """
-    Play tone code taken and modified from https://stackoverflow.com/a/16268034
-    """
+    Play a tone with the given frequency and duration.
 
+    Parameters:
+        frequency (float): The frequency of the tone.
+        sample_rate (int): The sample rate of the tone.
+        duration (float): The duration of the tone in seconds.
+        speaker (str): The speaker to play the tone from ('l' for left, 'r' for right).
+
+    Returns:
+        None
+    """
     bits = 16
     pygame.mixer.pre_init(sample_rate, bits, 2)
 
@@ -55,7 +85,4 @@ def play_tone(frequency, sample_rate=44100, duration=1, speaker=None):
     sound.play(loops = 1, maxtime=int(duration * one_sec))
     time.sleep(duration)
 
-
-
 NOTE_MAP = read_json('frequency_map.json')
-
