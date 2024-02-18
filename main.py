@@ -107,12 +107,10 @@ first_time = True
 remove_point = 0
 previous_positions = [-1, -1, -1]
 
-
 # Function to update the plot with new data
 def update():
     dataOk = 0
     global detObj, first_time, x1, x2, x3, remove_point, previous_positions, text_box
-
     x = []
     y = []
     graphical_flag = False
