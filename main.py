@@ -1,3 +1,15 @@
+"""
+    - Code by Daniel Nicolau (2232623) and Nicolas Vasconcellos (2232720)
+    - Subject: Radio Systems
+    - Professor: Rafael Caldeirinha
+    - Major: Master's in Electrical and Electronic Engineering
+    - School: Polytechnic Institute of Leiria
+    - City: Leiria
+    - Country: Portugal
+
+    The code is available at GitHub: https://github.com/DSNicolau/RasPAS--Radar-Based-Parking-Assistant-System
+"""
+
 import numpy as np
 from matplotlib import pyplot as plt
 import utils
@@ -50,7 +62,7 @@ for i in file:
         maxdistance = float(maxdistance)
 
 # Calculate the number of levels for the polar plot
-n_levels = 4
+n_levels = 8
 if n_levels < 3:
     raise ValueError("n_levels should be greater than 3")
 
@@ -106,6 +118,7 @@ x1 = x2 = x3 = None
 first_time = True
 remove_point = 0
 previous_positions = [-1, -1, -1]
+
 
 # Function to update the plot with new data
 def update():
