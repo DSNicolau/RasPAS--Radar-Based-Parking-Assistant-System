@@ -12,11 +12,11 @@ This project implements a graphical interface for a radar-based parking assistan
 ## Repository Contents
 
 - **AWR1843.py**: A compilation of functions from the [AWR1843-Read-Data-Python-MMWAVE-SDK-3](https://github.com/ibaiGorordo/AWR1843-Read-Data-Python-MMWAVE-SDK-3-) repository with slight modifications to account for deprecated packages.
+- **car.jpg**: A figure of the rear of a car used for integration into the graphical interface.
 - **frequency_map.json**: A lookup table of musical notes to their respective frequencies, sourced from [music_maker](https://github.com/JamminCoder/music_maker).
 - **main.py**: The main script that creates a graphical interface using a polar bar plot, receives data points from an AWR1843 radar, clusters them into regions for the plot, and plays sound based on the distance to the object.
 - **Note.py**: A class representing a musical note, also from [music_maker](https://github.com/JamminCoder/music_maker).
 - **Radar_config_vx.cfg**: Three radar configurations developed, with v3 being the final calibrated one for the specific scenario.
-- **Tesla_Car_Crop_2.jpg**: A figure of the rear of a car used for integration into the graphical interface.
 - **Tone.py**: A class to generate and play notes, also from [music_maker](https://github.com/JamminCoder/music_maker).
 - **Track.py**: A class to manage to play a sequence of notes in a different thread, allowing the code to continue running while notes are played, also from [music_maker](https://github.com/JamminCoder/music_maker).
 - **utils_notes.py**: Several functions for parsing and file reading to play notes correctly, also from [music_maker](https://github.com/JamminCoder/music_maker).

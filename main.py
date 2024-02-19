@@ -82,7 +82,7 @@ r_distances = [i * height for i in range(0, n_levels + 1)]
 fig = plt.figure()
 
 # Open the image file and convert it to a numpy array
-img = Image.open("Tesla_Car_Crop_2.jpg")
+img = Image.open("car.jpg")
 img = np.array(img)
 
 # Get the height, width, and depth of the image
