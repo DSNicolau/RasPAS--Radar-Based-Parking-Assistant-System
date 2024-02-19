@@ -81,21 +81,28 @@ r_distances = [i * height for i in range(0, n_levels + 1)]
 # Create polar plot
 fig = plt.figure()
 
-
+# Open the image file and convert it to a numpy array
 img = Image.open("Tesla_Car_Crop_2.jpg")
 img = np.array(img)
+
+# Get the height, width, and depth of the image
 img_height, img_width, img_depth = img.shape
+# Add a subplot for the image and display it without axis
 ax2 = fig.add_subplot(212, polar=False)
 ax2.imshow(img)
 ax2.axis("off")
 
+# Add a subplot for the polar plot
 ax = fig.add_subplot(projection="polar")
+# Define the theta grids for the polar plot
 theta_grids = [
     thetamin,
     (thetamax - thetamin) / 3 + thetamin,
     thetamax - (thetamax - thetamin) / 3,
     thetamax,
 ]
+
+# Set the theta grids, rorigin, theta zero location, thetamin, and thetamax for the polar plot (definition of the GUI)
 ax.set_thetagrids(theta_grids)
 ax.set_rorigin(-0.5)
 ax.set_theta_zero_location("N")
@@ -126,6 +133,8 @@ def update():
     global detObj, first_time, x1, x2, x3, remove_point, previous_positions, text_box
     x = []
     y = []
+
+    # Initialize a flag to track if graphical positions have been updated
     graphical_flag = False
 
     # Read and parse the received data
@@ -153,30 +162,48 @@ def update():
         r_np, theta_np = utils.position_to_polar(
             x=positions_np[:, 0], y=positions_np[:, 1]
         )
+
+        # Removal of points resulted from the noise coupling between antennas
         r_np -= 0.1
         r_np = [r_i + 0.01 for r_i in r_np if r_i > 0]
+
+        # Initialize list for storing graphical positions
         graphical_positions = [-1, -1, -1]
         for pos in positions:
+            # Convert Cartesian coordinates (x, y) to polar coordinates (r, theta)
             r, theta = utils.position_to_polar(x=pos[0], y=pos[1])
+            # Removal of points resulted from the noise coupling between antennas
             r -= 0.1
             if r < 0:
                 continue
             r += 0.01
+            # Convert theta from radians to degrees and adjust it by -90 degrees (to align with graphical representation)
             theta = theta - np.pi / 2
             theta = utils.rad_to_deg(theta)
+            # Determine the graphical position for the current position based on theta and r
             for i in range(3):
                 if theta >= theta_grids[i] and theta <= theta_grids[i + 1]:
                     for j in range(n_levels):
+                        # Update the graphical position if the current position is closer to the center
                         if r >= r_distances[j] and r <= r_distances[j + 1]:
                             if (
                                 graphical_positions[i] != -1
                                 and j < graphical_positions[i]
                             ) or graphical_positions[i] == -1:
                                 graphical_positions[i] = j
+
+        # Check if graphical_positions is [-1, -1, -1] (no objects detected)
         if graphical_positions == [-1, -1, -1]:
+            # Play no sound indicating no objects detected and update the text box
             track.note(0)
             text_box.set_text("Distance: --.-- m")
         else:
+            """
+                Initially, a for cycle was thought to implement here to iterate through each graphical position
+                However, when dealing with the removal of the each bar in the graphical representation,
+                it was found that the use of this for cycle was not possible to use for the removal of the bars
+            """
+            # Check if the current graphical position matches the previous position
             if (
                 graphical_positions[0] != -1
                 and graphical_positions[0] == previous_positions[0]
@@ -190,6 +217,7 @@ def update():
                     bottom=r_distances[pos],
                     color=colors[pos],
                 )
+            # If the current graphical position doesn't match, use the previous position
             elif previous_positions[0] != -1:
                 graphical_flag = True
                 pos = previous_positions[0]
@@ -246,13 +274,17 @@ def update():
                     bottom=r_distances[pos],
                     color=colors[pos],
                 )
+            # If graphical positions have been updated, calculate the minimum radius
             if graphical_flag:
                 min_r_np = np.min(r_np)
                 text_box.set_text("Distance: %0.02f m" % min_r_np)
             else:
+                # If graphical positions haven't been updated, display no objects detected
                 text_box.set_text("Distance: --.-- m")
-
+            
+            # Remove any -1 values from previous_positions
             previous_positions = [x for x in previous_positions if x != -1]
+            # If there are still values in previous_positions, play a note based on the closest object
             if previous_positions != []:
                 closest = min(previous_positions)
                 if closest == 3 or closest == 2:
@@ -261,7 +293,11 @@ def update():
                     track.note(2)
                 else:
                     track.note(3)
+
+        # Update previous_positions with the current graphical_positions
         previous_positions = copy.copy(graphical_positions)
+
+        # Set the radial ticks and maximum distance for the plot
         ax.set_rticks(r_distances)
         ax.set_rmax(maxdistance)
 
