@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project implements a graphical interface for a radar-based parking assistant system, displaying radar data in real-time into regions and playng sounds based on the distance to the detected objects. It is developed as part of the Radio Systems course at the Polytechnic Institute of Leiria, Portugal, under the guidance of Professor Rafael Caldeirinha.
+This project implements a graphical interface for a radar-based parking assistant system, displaying radar data in real-time into regions and playing sounds based on the distance to the detected objects. It is developed as part of the Radio Systems course at the Polytechnic Institute of Leiria, Portugal, under the guidance of Professor Rafael Caldeirinha.
 
 ## Contributors
 
@@ -18,7 +18,7 @@ This project implements a graphical interface for a radar-based parking assistan
 - **Radar_config_vx.cfg**: Three radar configurations developed, with v3 being the final calibrated one for the specific scenario.
 - **Tesla_Car_Crop_2.jpg**: A figure of the rear of a car used for integration into the graphical interface.
 - **Tone.py**: A class to generate and play notes, also from [music_maker](https://github.com/JamminCoder/music_maker).
-- **Track.py**: A class to manage playing a sequence of notes in a different thread, allowing the code to continue running while notes are played, also from [music_maker](https://github.com/JamminCoder/music_maker).
+- **Track.py**: A class to manage to play a sequence of notes in a different thread, allowing the code to continue running while notes are played, also from [music_maker](https://github.com/JamminCoder/music_maker).
 - **utils_notes.py**: Several functions for parsing and file reading to play notes correctly, also from [music_maker](https://github.com/JamminCoder/music_maker).
 - **utils.py**: Functions developed for conversion between polar and Cartesian coordinates and radian to degrees.
 
@@ -30,4 +30,4 @@ This project implements a graphical interface for a radar-based parking assistan
 
 ## Usage
 
-To run the code, only the `main.py` file needs to be changed. The graphical interface is already set up to accommodate different `.cfg` files, where the azimuth angle and distance are variable. If more radial resolution is needed or preferable, only the variable `n_levels` needs to be changed to the desired value.
+To run the code, please run the `main.py` file. The graphical interface is already set up to accommodate different `.cfg` files, where the azimuth angle and distance are variable. If more radial resolution is needed or preferable, only the variable `n_levels` needs to be changed to the desired value.
